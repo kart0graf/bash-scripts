@@ -1,0 +1,2 @@
+IFS=";"
+find all -type f -iname "*.BMP"| while read FILENAME; do convert $FILENAME "${FILENAME%.BMP}.jpg" && rm $FILENAME; done
