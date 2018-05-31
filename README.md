@@ -19,6 +19,10 @@
 ### [PNGtoJPG](https://github.com/kart0graf/bash-scripts/blob/master/work_with_images/PNGtoJPG)
 Подобен **BMPtoJPG**. 
 
+### [convertBMPtoJPG.bat](https://github.com/kart0graf/bash-scripts/blob/master/work_with_images/convertBMPtoJPG.bat)
+Этот скрипт сделан для Windows. Тоже требуется установленный imageMagick.
+Он ищет файлы bmp в текущей папке и в подпапках, и конвертирует их в jpg. Исходные файлы не удаляются. 
+
 
 
 
