@@ -1,0 +1,2 @@
+#!/bin/bash
+mkdir small; for f in *.jpg ; do convert -resize 2000x "$f" -quality 90 "small/$f" ; done

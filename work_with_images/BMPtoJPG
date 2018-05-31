@@ -1,0 +1,2 @@
+#!/bin/bash
+mkdir JPG; for f in *.BMP ; do convert "$f" "JPG/${f%.BMP}.jpg" ; done

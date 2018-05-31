@@ -1,0 +1,1 @@
+FOR /R %%a IN (*.BMP) DO convert "%%~a" "%%~dpna.jpg"
