@@ -17,7 +17,7 @@
 Похож на предыдущий скрипт. Создает папку **small** в текущей. Перебирает файлы в формате jpg и уменьшает их до размера в 2000px с качеством 90. 
 
 ### [PNGtoJPG](https://github.com/kart0graf/bash-scripts/blob/master/work_with_images/PNGtoJPG)
-Подобен BMPtoJPG. 
+Подобен **BMPtoJPG**. 
 
 
 
