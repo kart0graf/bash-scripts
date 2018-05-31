@@ -13,6 +13,9 @@
 ### [BMPtoJPG](https://github.com/kart0graf/bash-scripts/blob/master/work_with_images/BMPtoJPG)
 Создает папку JPG в текущей, туда попадают конвертированные из BMP в jpg  файлы. Файлы перебираются  из текущей папки. Могут быть проблемы с пробелами в названиях файлов.
 
+### [jpg2000px](https://github.com/kart0graf/bash-scripts/blob/master/work_with_images/jpg2000px)
+Похож на предыдущий скрипт. Создает папку **small** в текущей. Перебирает файлы в формате jpg и уменьшает их до размера в 2000px с качеством 90. 
+
 
 
 
