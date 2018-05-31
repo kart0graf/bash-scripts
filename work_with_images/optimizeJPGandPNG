@@ -1,0 +1,48 @@
+#PARAMETRS='--size=50k' #Сжать до этого размера
+PARAMETRS='-m75' #Качество
+SIZE='1600' #Ширина картинки
+IFS="," #Чтобы convert работал с файлами с пробелами в названии
+echo '' > file.tmp
+rm -r output
+rm log.txt
+rm error.txt
+rm size.txt
+mkdir output
+echo 'Удаляем старый лог (если есть) и содержимое  папки output'
+rsync -a --include '*.[Jj][Pp][Gg]' --include '*.[Jj][Pp][Ee][Gg]' --include '*.[Pp][Nn][Gg]' --include '*/' --exclude '*'  all/ output 1>>log.txt 2>>error.txt #Копируем только файлы JP(E)G и PNG
+
+echo 'Суммарный размер каталога перед оптимизацией'
+du -h -s output
+
+
+find output -type f -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg"| while read FILENAME; do  #-iname - без учета регистра, -o оператор или
+
+TYPE=`identify $FILENAME | grep -E -o ' JPEG | PNG '` #Определяем тип файла, добавлены лишние пробелы чтобы не путать с именем файла filePNG.PNG
+
+case "$TYPE" in #Проверяем к какому случаю относится
+" JPEG " ) chown --reference=$FILENAME file.tmp;chmod --reference=$FILENAME file.tmp 2>>error.txt; #Сохраняем права на файл
+	   FILE_SIZE_OLD=`du -h $FILENAME| head -n1 | awk '{print $1}'`; #Размер файла до оптимизации
+	 	 convert $FILENAME -resize $SIZE\>  $FILENAME;echo "$FILENAME OK" 2>error.txt; # Уменьшаем ширину файла
+		 jpegoptim  --all-progressive $PARAMETRS --strip-all "$FILENAME" >> log.txt 2>error.txt; #Оптимизируем JPG
+	   chown --reference=file.tmp $FILENAME;chmod --reference=file.tmp $FILENAME 2>>error.txt; #Восстанавливаем права
+	   FILE_SIZE_NEW=`du -h $FILENAME| head -n1 | awk '{print $1}'`; #Размер файла после оптимизации
+	   echo "$FILENAME $FILE_SIZE_OLD $FILE_SIZE_NEW">>size.txt;; #Сохраняем в отчет по изменению файлов
+" PNG " ) chown --reference=$FILENAME file.tmp;chmod --reference=$FILENAME file.tmp; #Сохраняем права на файл
+	  FILE_SIZE_OLD=`du -h $FILENAME| head -n1 | awk '{print $1}'`; #Размер файла до оптимизации
+
+		 convert $FILENAME -resize $SIZE\>  $FILENAME;echo "$FILENAME OK";echo $FILENAME >> log.txt; #Уменьшаем ширину файла
+		 optipng  "$FILENAME" | grep 'file size' >>log.txt; # Оптимизируем png
+          chown --reference=file.tmp $FILENAME;chmod --reference=file.tmp $FILENAME; #Восстанавливаем права
+	  FILE_SIZE_NEW=`du -h $FILENAME| head -n1 | awk '{print $1}'`; #Размер файла после оптимизации
+          echo "$FILENAME $FILE_SIZE_OLD $FILE_SIZE_NEW">>size.txt;; #Сохраняем в отчет по изменению файлов
+
+* ) echo "$FILENAME ошибочный" >>error.txt;;
+esac
+done
+
+echo 'Суммарный размер каталога output после оптимизации'
+du -h -s output
+
+rm file.tmp
+
+exit 0
