@@ -1,5 +1,6 @@
 #!/bin/bash
 mkdir TAB
+# Сделал для верхнего и нижнего регистра, почему то приносят в разном регистре.
 for f in *.MIF ; do ogr2ogr -f "MapInfo File" "TAB/${f%.MIF}.tab" "$f"; done
 for f in *.mif ; do ogr2ogr -f "MapInfo File" "TAB/${f%.mif}.tab" "$f"; done
 
