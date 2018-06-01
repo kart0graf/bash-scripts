@@ -1,0 +1,6 @@
+#!/bin/bash
+mkdir TAB
+for f in *.prj ; do mv $f  "${f%.prj}.prj_del"; done
+for f in *.shp ; do ogr2ogr -f "MapInfo File" "TAB/${f%.shp}.tab" "$f"; done
+
+

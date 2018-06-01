@@ -1,0 +1,5 @@
+#!/bin/bash
+mkdir TAB
+for f in *.MIF ; do ogr2ogr -f "MapInfo File" "TAB/${f%.MIF}.tab" "$f"; done
+for f in *.mif ; do ogr2ogr -f "MapInfo File" "TAB/${f%.mif}.tab" "$f"; done
+
