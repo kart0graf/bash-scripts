@@ -1,0 +1,12 @@
+#!/bin/bash
+#Наименование векторного слоя
+NAME = 'name_layer'
+#Слой еще и в кодировке "CP1251"
+mkdir SQL;for f in *.shp ; do shp2pgsql -W "CP1251" -i -e -a "$f" "$NAME" > "SQL/${f%.shp}.sql";done
+echo 'SET CLIENT_ENCODING TO UTF8;'>> "$NAME.sql"
+echo 'SET STANDARD_CONFORMING_STRINGS TO ON;'>> "$NAME.sql"
+echo 'BEGIN;'>> $NAME.sql
+for f in SQL/*.sql ; do cat "$f"|grep INSERT >> "$NAME.sql";done
+echo 'COMMIT;'>> $NAME.sql"
+rm SQL/*
+rmdir SQL
