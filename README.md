@@ -44,7 +44,19 @@
 Комментарии кода есть в самом скрипте.
 
 
+## [Скрипты для работы с геоданными.](https://github.com/kart0graf/bash-scripts/tree/master/geospatial_scripts)
+Скрипты на основе библиотек GDAL/OGR. Предназначены для работы с векторными и растровыми данными имеющими географичскую привязку. 
 
+### [shp2tab](https://github.com/kart0graf/bash-scripts/blob/master/geospatial_scripts/shp2tab)
+
+- Создает каталог TAB.
+- Удаляет файл с информацией о проекции, ее можно задать потом, когда будете добавлять в QGIS или Mapinfo. Иначе у MSK66 пропадала часть параметров.
+- Конвертируем.
+
+### [mif2tab](https://github.com/kart0graf/bash-scripts/blob/master/geospatial_scripts/mif2tab)
+
+- Создает каталог TAB.
+- Конвертируем. 
 
 
 
